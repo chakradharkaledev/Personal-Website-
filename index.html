@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Chakradhar — Engineering Student</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  >
+
+  <style>
+    :root {
+      --bg: #f8f9fb;
+      --white: #ffffff;
+      --text: #111827;
+      --muted: #647184;
+      --border: #e1e5ea;
+      --accent: #15958b;
+      --accent-dark: #087b73;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: "DM Sans", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* =========================
+       HEADER
+    ========================= */
+
+    header {
+      height: 82px;
+      background: rgba(255, 255, 255, 0.97);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 5%;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      backdrop-filter: blur(10px);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    .logo-symbol {
+      width: 38px;
+      height: 38px;
+      border: 2px solid #183f43;
+      border-radius: 50%;
+      position: relative;
+    }
+
+    .logo-symbol::before {
+      content: "";
+      position: absolute;
+      width: 22px;
+      height: 22px;
+      border: 1px solid #183f43;
+      border-radius: 50%;
+      left: 7px;
+      top: 7px;
+    }
+
+    .logo-symbol::after {
+      content: "C";
+      position: absolute;
+      font-size: 24px;
+      font-weight: 500;
+      left: 8px;
+      top: 1px;
+      color: #183f43;
+    }
+
+    .desktop-nav {
+      display: flex;
+      gap: 32px;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .desktop-nav a:hover {
+      color: var(--accent);
+    }
+
+    .menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 30px;
+      cursor: pointer;
+    }
+
+    /* =========================
+       MOBILE MENU
+    ========================= */
+
+    .mobile-menu {
+      position: fixed;
+      inset: 82px 0 0;
+      background: white;
+      z-index: 999;
+      padding: 40px 7%;
+      transform: translateX(100%);
+      transition: 0.3s ease;
+    }
+
+    .mobile-menu.active {
+      transform: translateX(0);
+    }
+
+    .mobile-menu a {
+      display: block;
+      padding: 20px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 20px;
+    }
+
+    /* =========================
+       HERO
+    ========================= */
+
+    .hero {
+      max-width: 1200px;
+      margin: auto;
+      padding: 70px 5% 110px;
+    }
+
+    .hero-image {
+      width: 100%;
+      height: 500px;
+      object-fit: cover;
+      border-radius: 4px;
+      display: block;
+      border: 1px solid var(--border);
+    }
+
+    .hero-content {
+      padding-top: 70px;
+    }
+
+    .small-line {
+      width: 130px;
+      height: 2px;
+      background: #dfe4e8;
+      margin-bottom: 40px;
+      position: relative;
+    }
+
+    .small-line::before {
+      content: "";
+      width: 45px;
+      height: 3px;
+      background: var(--accent);
+      position: absolute;
+      left: 0;
+      top: -1px;
+    }
+
+    h1 {
+      font-size: clamp(52px, 8vw, 90px);
+      line-height: 0.95;
+      letter-spacing: -4px;
+      font-weight: 500;
+      margin-bottom: 35px;
+    }
+
+    .hero-description {
+      max-width: 720px;
+      font-size: 22px;
+      line-height: 1.75;
+      color: var(--muted);
+      margin-bottom: 42px;
+    }
+
+    .primary-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      padding: 18px 25px;
+      background: var(--accent);
+      color: white;
+      border-radius: 5px;
+      font-size: 16px;
+      transition: 0.25s ease;
+    }
+
+    .primary-btn:hover {
+      background: var(--accent-dark);
+      transform: translateY(-2px);
+    }
+
+    /* =========================
+       ABOUT
+    ========================= */
+
+    section {
+      border-top: 1px solid var(--border);
+    }
+
+    .section-container {
+      max-width: 1200px;
+      margin: auto;
+      padding: 100px 5%;
+    }
+
+    .section-title {
+      font-size: clamp(38px, 5vw, 56px);
+      font-weight: 500;
+      letter-spacing: -2px;
+      margin-bottom: 35px;
+    }
+
+    .about-text {
+      max-width: 900px;
+      font-size: 22px;
+      line-height: 1.8;
+      color: var(--muted);
+    }
+
+    /* =========================
+       ACADEMIC JOURNEY
+    ========================= */
+
+    .academic {
+      background: #f5f7f9;
+    }
+
+    .academic-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 22px;
+      margin-top: 55px;
+    }
+
+    .academic-card {
+      background: white;
+      border: 1px solid #edf0f3;
+      padding: 40px 35px;
+      display: grid;
+      grid-template-columns: 60px 1fr 40px;
+      gap: 20px;
+      align-items: start;
+      transition: 0.25s ease;
+    }
+
+    .academic-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 15px 40px rgba(20, 30, 40, 0.06);
+    }
+
+    .academic-icon {
+      font-size: 28px;
+    }
+
+    .academic-card h3 {
+      font-size: 26px;
+      font-weight: 600;
+      margin-bottom: 15px;
+    }
+
+    .academic-card p {
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.7;
+    }
+
+    .number {
+      color: var(--muted);
+      font-size: 15px;
+      text-align: right;
+    }
+
+    .journey-link {
+      display: inline-flex;
+      margin-top: 55px;
+      color: var(--accent);
+      font-size: 18px;
+      font-weight: 500;
+      gap: 10px;
+    }
+
+    /* =========================
+       FEATURE IMAGE
+    ========================= */
+
+    .campus {
+      padding-top: 80px;
+      padding-bottom: 80px;
+    }
+
+    .campus-image {
+      width: 100%;
+      max-height: 600px;
+      object-fit: cover;
+      border-radius: 4px;
+      display: block;
+    }
+
+    /* =========================
+       CONNECT
+    ========================= */
+
+    .connect {
+      text-align: center;
+    }
+
+    .social-grid {
+      margin-top: 55px;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 22px;
+      text-align: left;
+    }
+
+    .social-card {
+      background: white;
+      border: 1px solid var(--border);
+      padding: 30px;
+      min-height: 125px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: 0.25s ease;
+    }
+
+    .social-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-3px);
+    }
+
+    .social-card h3 {
+      font-size: 23px;
+      font-weight: 500;
+      margin-bottom: 7px;
+    }
+
+    .social-card p {
+      color: var(--muted);
+      font-size: 16px;
+    }
+
+    .arrow {
+      font-size: 25px;
+      color: var(--muted);
+    }
+
+    /* =========================
+       FOOTER
+    ========================= */
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 45px 5%;
+      text-align: center;
+      color: var(--muted);
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 35px;
+      margin-bottom: 25px;
+    }
+
+    .footer-links a:hover {
+      color: var(--accent);
+    }
+
+    /* =========================
+       RESPONSIVE
+    ========================= */
+
+    @media (max-width: 768px) {
+
+      header {
+        height: 75px;
+        padding: 0 5%;
+      }
+
+      .desktop-nav {
+        display: none;
+      }
+
+      .menu-btn {
+        display: block;
+      }
+
+      .mobile-menu {
+        inset: 75px 0 0;
+      }
+
+      .hero {
+        padding: 40px 5% 75px;
+      }
+
+      .hero-image {
+        height: 390px;
+      }
+
+      .hero-content {
+        padding-top: 55px;
+      }
+
+      .small-line {
+        margin-bottom: 30px;
+      }
+
+      h1 {
+        font-size: 55px;
+        letter-spacing: -3px;
+      }
+
+      .hero-description {
+        font-size: 19px;
+        line-height: 1.7;
+      }
+
+      .section-container {
+        padding: 75px 5%;
+      }
+
+      .section-title {
+        font-size: 42px;
+      }
+
+      .about-text {
+        font-size: 19px;
+      }
+
+      .academic-card {
+        grid-template-columns: 40px 1fr 30px;
+        padding: 30px 20px;
+        gap: 10px;
+      }
+
+      .academic-card h3 {
+        font-size: 23px;
+      }
+
+      .academic-card p {
+        font-size: 16px;
+      }
+
+      .social-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .campus {
+        padding: 50px 5%;
+      }
+    }
+
+    @media (max-width: 480px) {
+
+      .hero-image {
+        height: 330px;
+      }
+
+      h1 {
+        font-size: 50px;
+      }
+
+      .hero-description {
+        font-size: 18px;
+      }
+
+      .primary-btn {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .academic-card {
+        grid-template-columns: 1fr 30px;
+      }
+
+      .academic-icon {
+        display: none;
+      }
+
+      .social-card {
+        padding: 25px 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ================= HEADER ================= -->
+
+  <header>
+
+    <a href="#home" class="logo">
+      <span class="logo-symbol"></span>
+      <span>Chakradhar</span>
+    </a>
+
+    <nav class="desktop-nav">
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#academic">Academic Journey</a>
+      <a href="#connect">Connect</a>
+    </nav>
+
+    <button class="menu-btn" id="menuBtn">
+      ☰
+    </button>
+
+  </header>
+
+
+  <!-- MOBILE MENU -->
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#home">Home</a>
+    <a href="#about">About Me</a>
+    <a href="#academic">Academic Journey</a>
+    <a href="#connect">Connect</a>
+  </div>
+
+
+  <!-- ================= HERO ================= -->
+
+  <main id="home">
+
+    <section class="hero">
+
+      <!-- Replace this image with your own -->
+      <img
+        class="hero-image"
+        src="myimg.jpg"
+        alt="Academic workspace"
+      />
+
+      <div class="hero-content">
+
+        <div class="small-line"></div>
+
+        <h1>Chakradhar</h1>
+
+        <p class="hero-description">
+          Engineering student building foundational technical depth
+          through a B.Tech, with an intended trajectory toward an
+          M.Tech and doctoral research.
+        </p>
+
+        <a href="#academic" class="primary-btn">
+          View Academic Journey
+          <span>→</span>
+        </a>
+
+      </div>
+
+    </section>
+
+
+    <!-- ================= CAMPUS ================= -->
+
+    <section class="campus">
+
+      <div class="section-container">
+
+        <img
+          class="campus-image"
+          src="college.jpg"
+          alt="University campus"
+        />
+
+      </div>
+
+    </section>
+
+
+    <!-- ================= ABOUT ================= -->
+
+    <section id="about">
+
+      <div class="section-container">
+
+        <h2 class="section-title">
+          About Me
+        </h2>
+
+        <p class="about-text">
+          I am an undergraduate engineering student driven by
+          computational principles, core systems, and deliberate
+          problem-solving. My focus is centered on mastering
+          fundamental engineering coursework while preparing for
+          advanced postgraduate study and dedicated research.
+        </p>
+
+      </div>
+
+    </section>
+
+
+    <!-- ================= ACADEMIC ================= -->
+
+    <section id="academic" class="academic">
+
+      <div class="section-container">
+
+        <div class="small-line"></div>
+
+        <h2 class="section-title">
+          Academic Path
+        </h2>
+
+        <div class="academic-grid">
+
+          <!-- BTECH -->
+
+          <article class="academic-card">
+
+            <div class="academic-icon">
+              🎓
+            </div>
+
+            <div>
+              <h3>B.Tech</h3>
+
+              <p>
+                Undergraduate studies focused on core engineering
+                principles and applied computational fundamentals.
+              </p>
+            </div>
+
+            <div class="number">
+              01
+            </div>
+
+          </article>
+
+
+          <!-- MTECH -->
+
+          <article class="academic-card">
+
+            <div class="academic-icon">
+              ◉
+            </div>
+
+            <div>
+              <h3>M.Tech</h3>
+
+              <p>
+                Planned postgraduate specialisation to deepen
+                technical mastery and research methodologies.
+              </p>
+            </div>
+
+            <div class="number">
+              02
+            </div>
+
+          </article>
+
+
+          <!-- PHD -->
+
+          <article class="academic-card">
+
+            <div class="academic-icon">
+              📖
+            </div>
+
+            <div>
+              <h3>PhD</h3>
+
+              <p>
+                Long-term goal of conducting original research
+                and contributing meaningful knowledge to the field.
+              </p>
+            </div>
+
+            <div class="number">
+              03
+            </div>
+
+          </article>
+
+        </div>
+
+
+        <a href="#connect" class="journey-link">
+          Explore Full Journey →
+        </a>
+
+      </div>
+
+    </section>
+
+
+    <!-- ================= CONNECT ================= -->
+
+    <section id="connect">
+
+      <div class="section-container connect">
+
+        <h2 class="section-title">
+          Connect
+        </h2>
+
+        <div class="social-grid">
+
+          <a
+            class="social-card"
+            href="https://github.com/"
+            target="_blank"
+          >
+
+            <div>
+              <h3>GitHub</h3>
+              <p>Code & research repos</p>
+            </div>
+
+            <span class="arrow">↗</span>
+
+          </a>
+
+
+          <a
+            class="social-card"
+            href="https://youtube.com/"
+            target="_blank"
+          >
+
+            <div>
+              <h3>YouTube</h3>
+              <p>Lectures & walkthroughs</p>
+            </div>
+
+            <span class="arrow">↗</span>
+
+          </a>
+
+
+          <a
+            class="social-card"
+            href="https://x.com/"
+            target="_blank"
+          >
+
+            <div>
+              <h3>X</h3>
+              <p>Academic updates</p>
+            </div>
+
+            <span class="arrow">↗</span>
+
+          </a>
+
+
+          <a
+            class="social-card"
+            href="https://mastodon.social/"
+            target="_blank"
+          >
+
+            <div>
+              <h3>Mastodon</h3>
+              <p>Decentralized notes</p>
+            </div>
+
+            <span class="arrow">↗</span>
+
+          </a>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- ================= FOOTER ================= -->
+
+  <footer>
+
+    <div class="footer-links">
+      <a href="https://github.com/" target="_blank">GitHub</a>
+      <a href="https://youtube.com/" target="_blank">YouTube</a>
+      <a href="https://x.com/" target="_blank">X</a>
+      <a href="https://mastodon.social/" target="_blank">Mastodon</a>
+    </div>
+
+    <p>
+      © 2026 Chakradhar. All rights reserved.
+    </p>
+
+  </footer>
+
+
+  <!-- ================= JAVASCRIPT ================= -->
+
+  <script>
+
+    const menuBtn = document.getElementById("menuBtn");
+    const mobileMenu = document.getElementById("mobileMenu");
+
+    menuBtn.addEventListener("click", () => {
+      mobileMenu.classList.toggle("active");
+
+      if (mobileMenu.classList.contains("active")) {
+        menuBtn.textContent = "✕";
+      } else {
+        menuBtn.textContent = "☰";
+      }
+    });
+
+
+    // Close mobile menu after clicking a link
+
+    document.querySelectorAll(".mobile-menu a").forEach(link => {
+
+      link.addEventListener("click", () => {
+
+        mobileMenu.classList.remove("active");
+
+        menuBtn.textContent = "☰";
+
+      });
+
+    });
+
+  </script>
+
+</body>
+</html>
